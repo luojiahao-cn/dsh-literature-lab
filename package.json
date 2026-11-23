@@ -1,0 +1,66 @@
+{
+  "name": "dsh-literature-lab",
+  "version": "0.2.4",
+  "type": "module",
+  "description": "DeepSeek Harness 插件 · 每日文献发现与精读流水线：自动采集、逐层筛选、取回原文并入库 Zotero",
+  "license": "MIT",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client",
+    "scripts",
+    "client.js",
+    "cordis.patch.yml",
+    "lib",
+    "config",
+    "locale/*.json",
+    "docs",
+    "icon.svg",
+    "README.md",
+    "LICENSE",
+    "extension",
+    "data",
+    "!scripts/make-public.mjs"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "literature",
+    "paper-discovery",
+    "zotero",
+    "research"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  },
+  "scripts": {
+    "build:client": "node scripts/build-client.mjs",
+    "test": "node --test test/*.test.mjs",
+    "prepublishOnly": "node scripts/build-client.mjs && node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^4.10.38"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luojiahao-cn/dsh-literature-lab.git"
+  },
+  "homepage": "https://github.com/luojiahao-cn/dsh-literature-lab#readme",
+  "bugs": {
+    "url": "https://github.com/luojiahao-cn/dsh-literature-lab/issues"
+  }
+}

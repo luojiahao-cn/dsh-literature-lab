@@ -1,0 +1,223 @@
+{
+  "schema": 1,
+  "window": {
+    "hours": 48,
+    "backfillDays": 14
+  },
+  "sources": {
+    "arxiv": {
+      "enabled": false,
+      "categories": [],
+      "queries": [],
+      "mailto": "",
+      "note": "按提交日期增量查询，漏跑会回填。categories 填 arXiv 分类，queries 填自定义查询式（如 abs:\"topic phrase\"）；两者二选一，queries 优先。"
+    },
+    "search": {
+      "enabled": true,
+      "sources": [
+        "arxiv",
+        "openalex",
+        "crossref"
+      ],
+      "sinceDays": 30,
+      "limit": 20,
+      "queries": [],
+      "note": "查询式检索（跨分类/期刊）。queries 为空时不检索。每条 {id,text,sources?,sinceDays?,limit?}；text 可用 arXiv 语法（如 au:\"Name\"、abs:\"topic phrase\"），否则按短语检索。"
+    },
+    "rssEnabled": true,
+    "rss": [],
+    "mail": {
+      "enabled": false,
+      "account": "",
+      "senders": [
+        "scholaralerts-noreply@google.com",
+        "scholarcitations-noreply@google.com"
+      ],
+      "maxBodiesPerRun": 12,
+      "markRead": false,
+      "markReadNote": "标已读只对本插件判定为论文推送的邮件生效；关闭时完全不动邮箱状态。"
+    },
+    "pubmed": {
+      "enabled": false,
+      "queries": [],
+      "sinceDays": 30,
+      "limit": 50,
+      "note": "Europe PMC/PubMed 检索式；医学、器械、临床方向用。留空不跑。"
+    },
+    "dblp": {
+      "enabled": false,
+      "queries": [],
+      "sinceYears": 2,
+      "limit": 50,
+      "note": "DBLP 检索式；CS/机器人会议与期刊用。只有书目，摘要后续补。"
+    },
+    "preprint": {
+      "enabled": false,
+      "servers": [
+        "biorxiv",
+        "medrxiv"
+      ],
+      "sinceDays": 3,
+      "limit": 50,
+      "categories": [],
+      "note": "bioRxiv/medRxiv 按日期取预印本；区间自动分块，类别留空取全部。"
+    }
+  },
+  "relevance": {
+    "keywords": [],
+    "contextKeywords": [],
+    "excludeKeywords": [],
+    "minScore": 3,
+    "note": "通用兴趣评分：关键词/辅助词/期刊会议/作者/领域标签或 MeSH/时效分别加权；列表留空表示不用该信号。默认无方向，按用户自己填。",
+    "venues": [],
+    "authors": [],
+    "categories": [],
+    "mesh": [],
+    "weights": {
+      "keyword": 3,
+      "context": 1,
+      "venue": 4,
+      "author": 3,
+      "category": 2,
+      "mesh": 2,
+      "recency": 0
+    },
+    "recencyDays": 0
+  },
+  "network": {
+    "timeoutMs": 20000,
+    "retries": 2,
+    "rssIntervalMs": 1000,
+    "arxivIntervalMs": 3000,
+    "arxivMaxPages": 20
+  },
+  "integrations": {
+    "zotero": {
+      "enabled": false,
+      "mode": "web",
+      "userId": "",
+      "groupId": "",
+      "localPort": 23119,
+      "autoImport": {
+        "enabled": false,
+        "minGrade": "B",
+        "requirePdf": false
+      },
+      "note": "mode=web：填 userId 与 API key（只读可分析关键词，写权限可入库）。mode=local：走 Zotero 10+ 桌面本地 API，读取免 key，写入需先 authorize 并在弹窗选 Always Allow；本地 key 存 state/zotero-local-key.json。凭据只存本机。",
+      "ai": {
+        "provider": "",
+        "model": ""
+      }
+    }
+  },
+  "schedule": {
+    "enabled": false,
+    "time": "07:00",
+    "timezone": "Asia/Shanghai",
+    "scope": "A",
+    "note": "插件自有 ctx.timer。到点执行：采集 → 邮件快讯；autoAnalyze=true 时再按每日额度自动跑 L1/L2/L3。analysis.auto 仅保留为旧版兼容。",
+    "autoAnalyze": false
+  },
+  "corpus": {
+    "maxItems": 500,
+    "note": "回溯采集。maxItems 单任务候选上限。"
+  },
+  "download": {
+    "maxPerDay": 6,
+    "note": "按 Asia/Shanghai 的自然日统计成功下载的 PDF；批量取原文时受此额度限制。",
+    "institutionalDirect": false,
+    "publisherTemplates": true,
+    "publisherTemplatesNote": "按 DOI 前缀试出版社官方 PDF 地址（Springer/Frontiers/PLOS/Nature/IOP/Taylor & Francis/SAGE/Elsevier）。抓到什么由抓取层判定，不做任何绕过。",
+    "maxMb": 80,
+    "access": {
+      "mode": "none",
+      "note": "机构访问：ezproxy=按模板改写并带 Cookie，webvpn=按正则改写，direct=只在机构域名上带 Cookie（CARSI/Shibboleth 登录后用）。Cookie 存在本机凭据里，不写进 config。",
+      "ezproxy": { "template": "" },
+      "webvpn": { "pattern": "", "replacement": "" },
+      "browserSession": { "userAgent": "", "cookieSecret": "DSH_LITERATURE_LAB_INSTITUTIONAL_COOKIE" },
+      "institutionalHosts": [],
+      "allowPrivateHosts": []
+    },
+    "watchImport": true,
+    "watchDir": "~/Downloads/论文"
+  },
+  "radar": {
+    "order": [
+      "manual",
+      "arxiv",
+      "rss",
+      "search",
+      "email",
+      "pubmed",
+      "dblp",
+      "preprint",
+      "harvest",
+      "logs"
+    ],
+    "hidden": [],
+    "note": "雷达 widget 顺序与隐藏；id 与前端 widget 对应。"
+  },
+  "analysis": {
+    "enabled": true,
+    "auto": true,
+    "lowConfidence": "park",
+    "lowGrade": "drop",
+    "models": {
+      "l1": {
+        "provider": "",
+        "model": ""
+      },
+      "l2": {
+        "provider": "",
+        "model": ""
+      },
+      "l3": {
+        "provider": "",
+        "model": ""
+      }
+    },
+    "daily": {
+      "l1": 30,
+      "l2": 6,
+      "l3": 3
+    },
+    "maxTokens": {
+      "l1": 2000,
+      "l2": 4000,
+      "l3": 12000
+    },
+    "pdf": {
+      "maxMb": 20,
+      "downloadOnlyForL2": true
+    },
+    "note": "AI 分析。模型留空时优先 deepseek，L1/L2/L3 默认取 flash；lowGrade=drop 表示 C/D 不进论文队列。",
+    "prompts": {
+      "l1": {
+        "system": "",
+        "extra": ""
+      },
+      "l2": {
+        "system": "",
+        "extra": ""
+      },
+      "l3": {
+        "system": "",
+        "extra": ""
+      }
+    }
+  },
+  "bridge": {
+    "enabled": true,
+    "port": 27888,
+    "token": ""
+  },
+  "digest": {
+    "maxPerGroup": 2,
+    "includeB": false,
+    "note": "每日摘要：总览页「今天值得读」的分组条数与范围；不发送邮件。"
+  },
+  "views": [],
+  "ui": {
+    "fontScale": 1
+  }
+}

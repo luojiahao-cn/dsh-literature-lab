@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "title": "Literature Lab",
+    "description": "Scan RSS and mail for new papers, then filter through discover → abstract triage → quick read → deep read, so only what is worth reading gets deep-read, imported and translated."
+  },
+  "name": "Literature Lab",
+  "description": "Daily literature discovery: scan RSS and mail for new papers, triage by abstract and quick read, and only deep-read, import and translate what is actually worth reading.",
+  "panel": "Literature Lab",
+  "stages": {
+    "l0": "Discover",
+    "l1": "Abstract triage",
+    "l2": "Quick read",
+    "l3": "Deep read"
+  },
+  "l1": {
+    "domain": {
+      "core": "Core domain",
+      "edge": "Adjacent domain",
+      "transferable": "Transferable method",
+      "irrelevant": "Irrelevant"
+    },
+    "use": {
+      "method": "Improve method",
+      "baseline": "Comparison baseline",
+      "citation": "Citation",
+      "landscape": "Survey"
+    },
+    "basis": {
+      "abstract": "Abstract only",
+      "triage": "After triage",
+      "fulltext": "Full-text checked"
+    },
+    "noAbstract": "Abstract unavailable"
+  }
+}

@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><title>DSH Literature PDF Bridge</title>
+<style>body{font:14px -apple-system,BlinkMacSystemFont,sans-serif;max-width:560px;margin:40px auto;line-height:1.6}label{display:block;margin:12px 0}input[type=text]{width:100%;padding:6px}</style>
+<h2>DSH Literature PDF Bridge</h2>
+<label><input type="checkbox" id="auto"> 自动处理出版社文章页（默认关闭；关闭时点扩展图标下载当前页）</label>
+<label>下载子目录（相对 ~/Downloads）<input type="text" id="subdir"></label>
+<label>插件 bridge 端口<input type="text" id="bridgePort" value="27888"></label>
+<label>bridge token（插件 state/config.json 的 bridge.token）<input type="text" id="bridgeToken" placeholder="32 位 token"></label>
+
+<button id="save">保存</button> <span id="msg"></span>
+<script src="options.js"></script>

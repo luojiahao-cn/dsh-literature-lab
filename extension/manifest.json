@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "DSH Literature PDF Bridge",
+  "version": "0.1.0",
+  "description": "在后台标签用已授权的 Chrome 会话下载出版社 PDF，交给 DSH literature-lab 自动导入。",
+  "permissions": ["downloads", "scripting", "tabs", "storage"],
+  "host_permissions": ["https://*/*", "http://*/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "下载当前论文 PDF 到 DSH" },
+  "options_page": "options.html"
+}

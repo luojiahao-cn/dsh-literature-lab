@@ -1,0 +1,4 @@
+# 文献实验室：Host 侧插件行。Client 侧由 package.json 的 dsh.client 加载。
+- insert:
+    - id: literature-lab
+      name: 'dsh-literature-lab'

@@ -1,0 +1,22 @@
+# 本地设计与交接笔记不进仓库
+local-notes/
+
+# 运行期数据不进仓库
+state/*.json
+state/analysis/
+state/texts/
+state/cards/
+state/backup/
+packs/
+pdfs/
+out/
+tmp/
+node_modules/
+*.tgz
+.DS_Store
+
+# 保留目录结构
+!state/.gitkeep
+
+# 关键图
+state/figures/
